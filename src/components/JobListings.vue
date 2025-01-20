@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, definePropsm, onMounted } from 'vue';
+import { reactive, defineProps, onMounted } from 'vue';
 import JobCard from './JobCard.vue';
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
@@ -12,14 +12,19 @@ defineProps({
   }
 })
 
-const jobs = ref([]);
+const state = reactive({
+  jobs: [],
+  isLoading: true
+})
 
 onMounted(async () => {
   try {
     const res = await axios.get('http://localhost:8000/jobs');
-    jobs.value = res.data;
+    state.jobs = res.data;
   } catch (error) {
     console.error("Error on fetch jobs", error.message)
+  } finally {
+    state.isLoading = false
   }
 })
 </script>
@@ -31,7 +36,7 @@ onMounted(async () => {
           Browse Jobs
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <JobCard v-for="job in jobs.slice(0, limit || jobs.length)" :key="job.id" :job="job"/>
+            <JobCard v-for="job in state.jobs.slice(0, limit || state.jobs.length)" :key="job.id" :job="job"/>
         </div>
       </div>
     </section>
