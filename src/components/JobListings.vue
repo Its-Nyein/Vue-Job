@@ -3,6 +3,7 @@ import { reactive, defineProps, onMounted } from 'vue';
 import JobCard from './JobCard.vue';
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 defineProps({
   limit: Number,
@@ -21,9 +22,12 @@ onMounted(async () => {
   try {
     const res = await axios.get('http://localhost:8000/jobs');
     state.jobs = res.data;
+
+    setTimeout(() => {
+      state.isLoading = false
+    }, 2000)
   } catch (error) {
-    console.error("Error on fetch jobs", error.message)
-  } finally {
+    console.error("Error on fetch jobs", error.message);
     state.isLoading = false
   }
 })
@@ -35,7 +39,13 @@ onMounted(async () => {
         <h2 class="text-3xl font-bold text-green-500 mb-6 text-center">
           Browse Jobs
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- loading spinner -->
+         <div v-if="state.isLoading" class="text-center py-5">
+          <PulseLoader />
+         </div>
+
+        <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <JobCard v-for="job in state.jobs.slice(0, limit || state.jobs.length)" :key="job.id" :job="job"/>
         </div>
       </div>
