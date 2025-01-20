@@ -11,6 +11,7 @@
 
 <template>
     <div :class="`${bg} p-6 rounded-lg shadow-md`">
-        <slot></slot> // similar to {children} in react
+        <slot></slot>
+        <!-- similar to {children} in react -->
     </div>
 </template>
