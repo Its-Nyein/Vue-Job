@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
 import JobCard from './JobCard.vue';
-import data from '@/data.json'
+import data from '@/data.json';
+import { RouterLink } from 'vue-router';
 
 const jobs = ref(data);
-const showButton = ref('more');
 
 defineProps({
   limit: Number,
-})
-
-const showToggle = () => {
-  if(showButton.value === 'more') {
-    showButton.value = 'less'
-  } else {
-    showButton.value = 'more'
+  showButton: {
+    type: Boolean,
+    default: false
   }
-}
+})
 </script>
 
 <template>
@@ -26,15 +22,15 @@ const showToggle = () => {
           Browse Jobs
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <JobCard v-for="job in jobs.slice(0, showButton === 'more' ? jobs.length : limit)" :key="job.id" :job="job"/>
+            <JobCard v-for="job in jobs.slice(0, limit || jobs.length)" :key="job.id" :job="job"/>
         </div>
       </div>
     </section>
-    <section @click="showToggle" class="m-auto max-w-lg my-10 px-6">
-      <a
-        href="/jobs"
+    <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
+      <RouterLink
+        to="/jobs"
         class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-        >View All Jobs</a
+        >View All Jobs</RouterLink
       >
     </section>
 </template>

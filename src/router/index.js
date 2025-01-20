@@ -1,3 +1,4 @@
+import JobListings from "@/components/JobListings.vue";
 import HomeView from "@/views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -8,6 +9,11 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: HomeView
+        },
+        {
+            path: '/jobs',
+            name: 'jobs',
+            component: JobListings
         }
     ]
 })
