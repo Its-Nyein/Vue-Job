@@ -1,16 +1,25 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref, definePropsm, onMounted } from 'vue';
 import JobCard from './JobCard.vue';
-import data from '@/data.json';
 import { RouterLink } from 'vue-router';
-
-const jobs = ref(data);
+import axios from 'axios';
 
 defineProps({
   limit: Number,
   showButton: {
     type: Boolean,
     default: false
+  }
+})
+
+const jobs = ref([]);
+
+onMounted(async () => {
+  try {
+    const res = await axios.get('http://localhost:8000/jobs');
+    jobs.value = res.data;
+  } catch (error) {
+    console.error("Error on fetch jobs", error.message)
   }
 })
 </script>
