@@ -1,4 +1,5 @@
 import JobListings from "@/components/JobListings.vue";
+import AddJobView from "@/views/AddJobView.vue";
 import HomeView from "@/views/HomeView.vue";
 import JobView from "@/views/JobView.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -21,6 +22,11 @@ const router = createRouter({
             path: '/jobs/:id',
             name: 'job',
             component: JobView
+        },
+        {
+            path: '/jobs/add',
+            name: 'add-job',
+            component: AddJobView
         },
         {
             path: '/:pathMatch(.*)',
