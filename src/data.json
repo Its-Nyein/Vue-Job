@@ -97,20 +97,6 @@
         "contactEmail": "test@gmail.com",
         "contactPhone": "test"
       }
-    },
-    {
-      "id": "7942",
-      "title": "Vue",
-      "type": "Remote",
-      "location": "vuee",
-      "description": "vueee",
-      "salary": "$50USD - $100USD",
-      "company": {
-        "name": "test",
-        "description": "vuee",
-        "contactEmail": "test@gmail.com",
-        "contactPhone": "test"
-      }
     }
   ]
 }
