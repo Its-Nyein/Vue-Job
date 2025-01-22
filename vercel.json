@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "vite.config.ts",
+        "use": "@vercel/static-build"
+      },
+      {
+        "src": "api/jobs.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/jobs.js"
+      }
+    ]
+  }
+  

@@ -16,7 +16,8 @@ export default defineConfig({
       // http://localhost:5173/api/bar
       //   -> http://jsonplaceholder.typicode.com/bar
       '/api': {
-        target: 'http://localhost:8000',
+        // target: 'http://localhost:8000',
+        target: 'https://vue-jobs-view.vercel.app',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       }
